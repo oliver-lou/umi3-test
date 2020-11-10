@@ -1,0 +1,84 @@
+{
+	// Place your umi3-test 工作区 snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"umi3.x-service": {
+		"prefix": "service",
+		"body": [
+			"import ajax from \"@/utils/ajax\"",
+			"",
+			"export function $1() {",
+			"\treturn ajax(`$0`);",
+			"}",
+		],
+		"description": "umi3.x的service代码片段"
+	},
+	"umi3.x-model":{
+		"prefix": "model",
+		"body": [
+			"import * as ${TM_FILENAME_BASE}Service from '../services/$TM_FILENAME_BASE'",
+			"import { message } from 'antd'",
+			"import { defaultPagination } from '@/common/constants'",
+			"",
+			"const currentNamespace = '${TM_FILENAME_BASE}Model';",
+			"// select选择器",
+			"const getCurrentNamespaceState = (state) => state[currentNamespace];",
+			"",
+			"export default {",
+    		"\tnamespace: currentNamespace,",
+    		"\tstate: {",
+        	"\t\tpagination: defaultPagination,",
+        	"\t\tlist: [],",
+    		"\t},",
+    		"\t// subscriptions函数在componentDidMount函数之前执行，只会执行一次",
+    		"\tsubscriptions: {",
+        	"\t\t// setupHistory({ dispatch, history }) {",
+        	"\t\t//     history.listen((location) => {",
+        	"\t\t//         if (location.query.page) {",
+        	"\t\t//             console.log(location);",
+        	"\t\t//             dispatch({",
+        	"\t\t//                 type: 'getOutreachList',",
+        	"\t\t//                 payload: {",
+        	"\t\t//                     ...location.query",
+        	"\t\t//                 },",
+        	"\t\t//             })",
+        	"\t\t//         }",
+        	"\t\t//     })",
+        	"\t\t// },",
+    		"\t},",
+    		"\treducers: {",
+        	"\t\tchangeList__(state, { payload }) {",
+            "\t\t\tstate.list = payload.content;",
+            "\t\t\tstate.pagination.page = payload.number + 1;",
+            "\t\t\tstate.pagination.size = payload.size;",
+            "\t\t\tstate.pagination.total = payload.totalElements;",
+        	"\t\t},",
+    		"\t},",
+    		"\teffects: {",
+        	"\t\t*$2({ payload }, { call, put }) {",
+            "\t\t\tconst response = yield call(${TM_FILENAME_BASE}Service.$2);",
+            "\t\t\tif (!response.code) {",
+            "\t\t\t\tyield put({ type: 'changeList__', payload: response });",
+            "\t\t\t\treturn response;",
+            "\t\t\t} else {",
+            "\t\t\t\tmessage.error(response.msg);",
+            "\t\t\t}",
+        	"\t\t},",
+    		"\t}",
+			"};",
+		]
+	},
+}
