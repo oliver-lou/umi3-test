@@ -1,16 +1,14 @@
-import * as globalService from '../services/global';
+// import * as indexService from '../services/index'
 import { message } from 'antd';
-import { defaultPagination } from '@/common/constants';
 
-const currentNamespace = 'globalModel';
+const currentNamespace = 'dashboardModel';
 // select选择器
 const getCurrentNamespaceState = state => state[currentNamespace];
 
 export default {
     namespace: currentNamespace,
     state: {
-        pagination: defaultPagination,
-        list: [],
+        data: null,
     },
     // subscriptions函数在componentDidMount函数之前执行，只会执行一次
     subscriptions: {
@@ -35,16 +33,13 @@ export default {
             state.pagination.size = payload.size;
             state.pagination.total = payload.totalElements;
         },
+        changeData__(state, { payload }) {
+            state.data = payload;
+        },
     },
     effects: {
         *getData({ payload }, { call, put }) {
-            const response = yield call(globalService.getData);
-            if (!response.code) {
-                yield put({ type: 'changeList__', payload: response });
-                return response;
-            } else {
-                message.error(response.msg);
-            }
+            yield put({ type: 'changeData__', payload });
         },
     },
 };

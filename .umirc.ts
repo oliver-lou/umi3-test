@@ -4,6 +4,9 @@ import openBrowser from 'open-browser-webpack-plugin';
 const host = '192.168.1.246';
 const port = '10000';
 export default defineConfig({
+    dva: {
+        immer: true,
+    },
     nodeModulesTransform: {
         type: 'none',
     },
