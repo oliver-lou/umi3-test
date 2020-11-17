@@ -1,5 +1,10 @@
 {
   "private": true,
+  "author": {
+    "name": "oliver lou",
+    "email": "oliver_lou@163.com"
+  },
+  "description": "本项目适用于大型项目",
   "scripts": {
     "start": "umi dev",
     "build": "umi build",
@@ -23,11 +28,18 @@
     "@ant-design/pro-layout": "^5.0.12",
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.2.25",
+    "antd": "^4.8.2",
     "lint-staged": "^10.0.7",
+    "lodash-es": "^4.17.15",
+    "open-browser-webpack-plugin": "0.0.5",
     "prettier": "^1.19.1",
+    "qs": "^6.9.4",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "umi": "^3.2.25",
     "yorkie": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/echarts": "4.9.0"
   }
 }

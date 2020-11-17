@@ -1,15 +1,3 @@
-# umi project
+.env.local不生效，原因不明
 
-## Getting Started
-
-Install dependencies,
-
-```bash
-$ yarn
-```
-
-Start the dev server,
-
-```bash
-$ yarn start
-```
+如何读取.env设置的环境变量，否则需要两头改，有点麻烦
